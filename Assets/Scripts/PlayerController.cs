@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
     public float fireRate;
     public GameObject bulletPrefab;
     public GameObject bulletSpawn;
+	public GameObject child;
 
     private Rigidbody2D rb2d;
     private float lastShot;
@@ -46,10 +47,10 @@ public class PlayerController : MonoBehaviour {
         Vector2 moveTarget = new Vector2(0, 0);
         Quaternion targetRotation;
 
-        if (Input.GetKey("up")) moveTarget += new Vector2(0, 1);
-        if (Input.GetKey("left")) moveTarget += new Vector2(-1, 0);
-        if (Input.GetKey("down")) moveTarget += new Vector2(0, -1);
-        if (Input.GetKey("right")) moveTarget += new Vector2(1, 0);
+		if (Input.GetKey(KeyCode.W)) moveTarget += new Vector2(0, 1);
+		if (Input.GetKey(KeyCode.A)) moveTarget += new Vector2(-1, 0);
+		if (Input.GetKey(KeyCode.S)) moveTarget += new Vector2(0, -1);
+		if (Input.GetKey(KeyCode.D)) moveTarget += new Vector2(1, 0);
 
         if (moveTarget != Vector2.zero)
         {
@@ -71,12 +72,14 @@ public class PlayerController : MonoBehaviour {
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
         rb2d.velocity = movement.normalized * speed;
-        if (Input.GetKey(KeyCode.Space) && Time.time - lastShot > fireRate)
-        {
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
-            bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * bulletSpeed;
-            lastShot = Time.time;
-        }       
-
+		child.GetComponent<Rigidbody2D>().velocity = movement.normalized * speed;  
     }
+
+	public void OnTriggerEnter2D(Collider2D collider){
+
+		if(collider.transform.tag == "Enemy"){
+			Debug.Log ("Te han pillao");
+			Destroy (collider.transform.gameObject);
+		}
+	}
 }
