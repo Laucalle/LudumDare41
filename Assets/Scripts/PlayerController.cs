@@ -22,16 +22,34 @@ public class PlayerController : MonoBehaviour {
         lastShot = 0.0f;
     }
 
-    // Update is called once per frame
-    void Update () {
+    
+    void Update2 () {
 
         Vector2 moveTarget = new Vector2(0, 0);
         Quaternion targetRotation;
 
-        if (Input.GetKey("w")) moveTarget += new Vector2(0, 1);
-        if (Input.GetKey("a")) moveTarget += new Vector2(-1, 0);
-        if (Input.GetKey("s")) moveTarget += new Vector2(0, -1);
-        if (Input.GetKey("d")) moveTarget += new Vector2(1, 0);
+        Vector3 shootDirection;
+        Vector3 mousePosition;
+        mousePosition = Input.mousePosition;
+        mousePosition.z = 0.0f;
+        shootDirection = Camera.main.ScreenToWorldPoint(mousePosition);
+        shootDirection = shootDirection - transform.position;
+
+        transform.rotation = Quaternion.LookRotation(mousePosition);
+
+    }
+
+    // Update que dispara con lass flechas
+    void Update ()
+    {
+
+        Vector2 moveTarget = new Vector2(0, 0);
+        Quaternion targetRotation;
+
+        if (Input.GetKey("up")) moveTarget += new Vector2(0, 1);
+        if (Input.GetKey("left")) moveTarget += new Vector2(-1, 0);
+        if (Input.GetKey("down")) moveTarget += new Vector2(0, -1);
+        if (Input.GetKey("right")) moveTarget += new Vector2(1, 0);
 
         if (moveTarget != Vector2.zero)
         {
@@ -46,17 +64,19 @@ public class PlayerController : MonoBehaviour {
 
     public void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        float moveHorizontal = 0, moveVertical = 0;
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) moveHorizontal = Input.GetAxis("Horizontal");
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)) moveVertical = Input.GetAxis("Vertical");
+
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
         rb2d.velocity = movement.normalized * speed;
-
         if (Input.GetKey(KeyCode.Space) && Time.time - lastShot > fireRate)
         {
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
             bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * bulletSpeed;
             lastShot = Time.time;
-        }
+        }       
+
     }
 }
