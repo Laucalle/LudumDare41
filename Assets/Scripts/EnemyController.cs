@@ -21,6 +21,13 @@ public class EnemyController : MonoBehaviour {
 		Vector2 direction = player.transform.position - transform.position;
 		rb2D.velocity = direction * speed;
 
-		
+	}
+
+	public void OnTriggerEnter2D(Collider2D collider){
+
+		if(collider.transform.tag == "Bullet"){
+			Destroy (collider.transform.gameObject);
+			Destroy (transform.gameObject);
+		}
 	}
 }
