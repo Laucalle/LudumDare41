@@ -4,36 +4,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    [SerializeField]
-    float _speed;
+    public float speed;
+    public float bulletSpeed;
+    public float fireRate;
+    public GameObject bulletPrefab;
+    public GameObject bulletSpawn;
 
     private Rigidbody2D rb2d;
-    private Vector2 direction;
-    public float moveTime = 0.1f;
-    private float inverseMoveTime;
+    private float lastShot;
+
     // Use this for initialization
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         float angle = Mathf.Atan2(Vector2.up.y, Vector2.up.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        inverseMoveTime = 1.0f / moveTime;
-        direction = Vector2.up;
-    }
-
-    protected IEnumerator SmoothMovement(Vector3 end)
-    {
-        float sqrReaminingDistance = (transform.position - end).sqrMagnitude;
-
-        while (sqrReaminingDistance > float.Epsilon)
-        {
-            Vector3 newPosition = Vector3.MoveTowards(rb2d.position, end, inverseMoveTime * Time.deltaTime);
-            rb2d.MovePosition(newPosition);
-            sqrReaminingDistance = (transform.position - end).sqrMagnitude;
-            yield return null;
-        }
-        transform.position = end;
-        //yield return new WaitForSeconds (0.5f);
+        lastShot = 0.0f;
     }
 
     // Update is called once per frame
@@ -50,28 +36,27 @@ public class PlayerController : MonoBehaviour {
         if (moveTarget != Vector2.zero)
         {
             float angle = Mathf.Atan2(moveTarget.y, moveTarget.x) * Mathf.Rad2Deg;
-            targetRotation = Quaternion.FromToRotation(direction, moveTarget);
+            targetRotation = Quaternion.FromToRotation(Vector2.up, moveTarget);
             if (targetRotation.z == 0) targetRotation.z = targetRotation.x;
             targetRotation.x = 0;
             targetRotation.y = 0;
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10);
-            //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-
-        }
-
     }
 
     public void FixedUpdate()
     {
-     
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
-        rb2d.velocity = movement.normalized * _speed;
+        rb2d.velocity = movement.normalized * speed;
+
+        if (Input.GetKey(KeyCode.Space) && Time.time - lastShot > fireRate)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
+            bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * bulletSpeed;
+            lastShot = Time.time;
+        }
     }
 }
