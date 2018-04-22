@@ -54,12 +54,12 @@ public class PlayerController : MonoBehaviour {
 
         if (moveTarget != Vector2.zero)
         {
-            float angle = Mathf.Atan2(moveTarget.y, moveTarget.x) * Mathf.Rad2Deg;
             targetRotation = Quaternion.FromToRotation(Vector2.up, moveTarget);
             if (targetRotation.z == 0) targetRotation.z = targetRotation.x;
             targetRotation.x = 0;
             targetRotation.y = 0;
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10);
+			//child.GetComponent<GunController>().CompensateRotation (targetRotation);
         }
     }
 
