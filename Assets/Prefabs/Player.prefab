@@ -296,6 +296,9 @@ MonoBehaviour:
   deathMenu: {fileID: 0}
   life: 4
   audio_manager: {fileID: 0}
+  particleScratch: {fileID: 0}
+  particleMagic: {fileID: 198807994415761648, guid: d3b97bcee2210394386e7887b8b41260,
+    type: 2}
 --- !u!212 &212078816407156596
 SpriteRenderer:
   m_ObjectHideFlags: 1

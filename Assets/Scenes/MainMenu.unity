@@ -1249,7 +1249,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Doll Nightmare
+  m_Text: Doll's Nightmare
 --- !u!222 &974849586
 CanvasRenderer:
   m_ObjectHideFlags: 0

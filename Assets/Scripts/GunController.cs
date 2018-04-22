@@ -10,6 +10,7 @@ public class GunController : MonoBehaviour {
 	public GameObject bulletSpawn;
 
 	private AudioManagerController audio_manager;
+    public ParticleSystem particleShot;
 	private float lastShot;
 	private Animator animator;
 	private float initial_position;
@@ -63,7 +64,7 @@ public class GunController : MonoBehaviour {
 			bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * bulletSpeed;
 			lastShot = Time.time;
 			UpdateAnimation ("GunnerShot");
-			audio_manager.Shot ();
+            audio_manager.Shot ();
 		} 
 	}
 
@@ -73,7 +74,7 @@ public class GunController : MonoBehaviour {
 		}
 	}
 
-	public void Recolocate() {
+    public void Recolocate() {
 		//transform.position = GetComponentInParent<PlayerController> ().transform.position;
 		Vector3 pos = GetComponentInParent<Rigidbody2D> ().velocity.normalized * initial_position;
 		if (pos != Vector3.zero)

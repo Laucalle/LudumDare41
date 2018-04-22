@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject deathMenu;
 	public int life;
 	public AudioManagerController audio_manager;
+    public ParticleSystem particleScratch, particleMagic;
 
 	private Animator animator;
 	private bool moving;
@@ -77,7 +78,6 @@ public class PlayerController : MonoBehaviour {
             targetRotation.x = 0;
             targetRotation.y = 0;
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10);
-			//child.GetComponent<GunController>().CompensateRotation (targetRotation);
         }
 
 		if (Input.GetKeyDown(KeyCode.L)) {
@@ -127,7 +127,10 @@ public class PlayerController : MonoBehaviour {
 			if (life == 0) {
 				Die ();
 			}
-		} else if (collider2D.transform.tag == "Wall") {
+            ParticleSystem p = Instantiate<ParticleSystem>(particleScratch, (transform.position+collider2D.gameObject.transform.position)/2, Quaternion.identity);
+            p.Play();
+            StartCoroutine(destroyParticle(p));
+        } else if (collider2D.transform.tag == "Wall") {
 			Die ();
 		}
 	}
@@ -166,9 +169,21 @@ public class PlayerController : MonoBehaviour {
 				new_position.y -= offset;
 				break;
 			}
-			transform.position = new_position;
+            if (movement != -1){
+                ParticleSystem p = Instantiate<ParticleSystem>(particleMagic, transform.position, Quaternion.identity);
+                p.Play();
+                StartCoroutine(destroyParticle(p));
+            }
+            transform.position = new_position;
 		}
 	}
+
+    IEnumerator destroyParticle(ParticleSystem p)
+    {
+        yield return new WaitForSeconds(4);
+        Destroy(p.gameObject);
+    }
+
 
 	void PrintTouchingTiles() {
 		string str = "Lista: ";

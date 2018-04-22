@@ -1086,6 +1086,24 @@ Prefab:
       propertyPath: audio_manager
       value: 
       objectReference: {fileID: 1003765850}
+    - target: {fileID: 114515321986988600, guid: eae561df6583f0042a5fbcf0ba767653,
+        type: 2}
+      propertyPath: particleMagic
+      value: 
+      objectReference: {fileID: 198807994415761648, guid: d3b97bcee2210394386e7887b8b41260,
+        type: 2}
+    - target: {fileID: 114515321986988600, guid: eae561df6583f0042a5fbcf0ba767653,
+        type: 2}
+      propertyPath: particleScratch
+      value: 
+      objectReference: {fileID: 198415955951051496, guid: 02fac918768cf744994385b03061a382,
+        type: 2}
+    - target: {fileID: 114200225011115720, guid: eae561df6583f0042a5fbcf0ba767653,
+        type: 2}
+      propertyPath: particleShot
+      value: 
+      objectReference: {fileID: 198079438308127154, guid: 0d1cc7d4098c1454796f240dd411bfe7,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eae561df6583f0042a5fbcf0ba767653, type: 2}
   m_IsPrefabParent: 0
@@ -2184,6 +2202,10 @@ Prefab:
     - target: {fileID: 1662173819619284, guid: 732cabec032bf864e95aeb3a774bcd7f, type: 2}
       propertyPath: m_TagString
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130917469374054, guid: 732cabec032bf864e95aeb3a774bcd7f, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 732cabec032bf864e95aeb3a774bcd7f, type: 2}
