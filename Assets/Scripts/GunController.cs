@@ -8,13 +8,15 @@ public class GunController : MonoBehaviour {
 	public float fireRate;
 	public GameObject bulletPrefab;
 	public GameObject bulletSpawn;
+
+	private AudioManagerController audio_manager;
 	private float lastShot;
 	private Animator animator;
-
 	private float initial_position;
 
 	// Use this for initialization
 	void Start () {
+		audio_manager = GetComponentInParent<PlayerController> ().audio_manager;
 		animator = GetComponent < Animator> ();
 		lastShot = 0.0f;
 		initial_position = (transform.position - GetComponentInParent<PlayerController> ().transform.position).magnitude;
@@ -61,7 +63,7 @@ public class GunController : MonoBehaviour {
 			bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * bulletSpeed;
 			lastShot = Time.time;
 			UpdateAnimation ("GunnerShot");
-
+			audio_manager.Shot ();
 		} 
 	}
 
