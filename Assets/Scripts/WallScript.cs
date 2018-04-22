@@ -14,8 +14,9 @@ public class WallScript : MonoBehaviour {
 		
 	}
 
-    /*private void OnCollisionEnter(){
-        if (other.gameObject.tag == "Bullet")
-            Destroy(other.gameObject);
-    }*/
+	public void OnTriggerEnter2D(Collider2D collider){
+		if (collider.gameObject.tag == "Bullet") {
+			Destroy (collider.gameObject);
+		}
+    }
 }

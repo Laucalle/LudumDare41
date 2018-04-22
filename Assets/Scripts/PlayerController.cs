@@ -86,7 +86,6 @@ public class PlayerController : MonoBehaviour {
 
     public void FixedUpdate()
     {
-		// Antiguo FixedUpdate
 		Vector2 movement;
 		float moveHorizontal = 0, moveVertical = 0;
 		if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) moveHorizontal = Input.GetAxis("Horizontal");
@@ -95,12 +94,7 @@ public class PlayerController : MonoBehaviour {
 		movement = new Vector2(moveHorizontal, moveVertical);
 
 		rb2d.velocity = movement.normalized * speed;
-
-		if (prev_position != transform.position) {
-			child.GetComponent<Rigidbody2D>().velocity = movement.normalized * speed; 
-			//GetComponentInChildren<GunController> ().Recolocate (); 
-		}
-		prev_position = transform.position;
+		child.GetComponent<Rigidbody2D>().velocity = movement.normalized * speed;
 
 		if (movement.magnitude == 0 && moving) {
 			moving = false;
@@ -129,9 +123,10 @@ public class PlayerController : MonoBehaviour {
 			Destroy (collider2D.transform.gameObject);
 			life -= 1;
 			if (life == 0) {
-				pause.GetComponent<PauseMenuController> ().Pause ();
-				deathMenu.SetActive (true);
+				Die ();
 			}
+		} else if (collider2D.transform.tag == "Wall") {
+			Die ();
 		}
 	}
 		
@@ -145,6 +140,8 @@ public class PlayerController : MonoBehaviour {
 		
 	private void Die() {
 		Debug.Log ("He muerto");
+		pause.GetComponent<PauseMenuController> ().Pause ();
+		deathMenu.SetActive (true);
 	}
 		
 	private void SwitchTiles() {
