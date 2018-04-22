@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour {
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10);
         }
 
-		if (Input.GetKeyDown(KeyCode.L)) {
+		if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.LeftShift)) {
 			SwitchTiles();
 		}
     }
