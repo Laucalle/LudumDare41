@@ -9,7 +9,7 @@ public class GunController : MonoBehaviour {
 	public GameObject bulletPrefab;
 	public GameObject bulletSpawn;
 	private float lastShot;
-	public Animator animator;
+	private Animator animator;
 
 	private float initial_position;
 
