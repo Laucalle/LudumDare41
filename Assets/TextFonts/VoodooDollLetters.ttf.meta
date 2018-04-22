@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 3bb0f0108b262454d874093052a5622b
+timeCreated: 1524402169
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: VoodooDollLetters
+  fontNames:
+  - VoodooDollLetters
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
