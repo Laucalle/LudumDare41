@@ -50,6 +50,8 @@ public class GunController : MonoBehaviour {
 			targetRotation.y = 0;
 			transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 15);
 		}
+
+		transform.position = GetComponentInParent<PlayerController> ().transform.position;
 	}
 
 	private void FixedUpdate() {
