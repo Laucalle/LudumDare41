@@ -71,7 +71,7 @@ public class PuzzleManager : MonoBehaviour {
 	}
 
 	void AssignSprites() {
-		int n_image = Random.Range (1, 3);
+		int n_image = Random.Range (3, 4);
 		string name_image = "background" + n_image;
 		tile_sprites = Resources.LoadAll<Sprite> (name_image);
 		for (int i = 0; i < 9; i++) {

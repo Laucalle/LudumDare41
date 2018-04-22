@@ -43,21 +43,15 @@ public class GunController : MonoBehaviour {
 		if (Input.GetKey("down")) moveTarget += new Vector2(0, -1);
 		if (Input.GetKey("right")) moveTarget += new Vector2(1, 0);
 
-		if (moveTarget != Vector2.zero)
-		{
-			float angle = Mathf.Atan2(moveTarget.y, moveTarget.x) * Mathf.Rad2Deg;
-			targetRotation = Quaternion.FromToRotation(Vector2.up, moveTarget);
-			if (targetRotation.z == 0) targetRotation.z = targetRotation.x;
+		if (moveTarget != Vector2.zero) {
+			float angle = Mathf.Atan2 (moveTarget.y, moveTarget.x) * Mathf.Rad2Deg;
+			targetRotation = Quaternion.FromToRotation (Vector2.up, moveTarget);
+			if (targetRotation.z == 0)
+				targetRotation.z = targetRotation.x;
 			targetRotation.x = 0;
 			targetRotation.y = 0;
-			transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 15);
+			transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, Time.deltaTime * 15);
 		}
-
-		//transform.position = GetComponentInParent<PlayerController> ().transform.position;
-		Vector3 pos = GetComponentInParent<Rigidbody2D> ().velocity.normalized * initial_position;
-		if (pos != Vector3.zero)
-			transform.position = GetComponentInParent<PlayerController> ().transform.position + pos;
-
 	}
 
 	private void FixedUpdate() {
@@ -75,5 +69,12 @@ public class GunController : MonoBehaviour {
 		if (animation_name != null) {
 			animator.Play (animation_name);
 		}
+	}
+
+	public void Recolocate() {
+		//transform.position = GetComponentInParent<PlayerController> ().transform.position;
+		Vector3 pos = GetComponentInParent<Rigidbody2D> ().velocity.normalized * initial_position;
+		if (pos != Vector3.zero)
+			transform.position = GetComponentInParent<PlayerController> ().transform.position + pos;
 	}
 }

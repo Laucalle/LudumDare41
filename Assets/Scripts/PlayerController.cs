@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
 	public Animator animator;
 	private bool moving;
 
+	private Vector3 prev_position;
+
     private Rigidbody2D rb2d;
     private float lastShot;
 
@@ -32,6 +34,8 @@ public class PlayerController : MonoBehaviour {
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         lastShot = 0.0f;
 		Physics2D.IgnoreCollision (GetComponent<BoxCollider2D> (), GetComponentInChildren<BoxCollider2D> ());
+		prev_position = transform.position;
+
     }
 
     
@@ -88,7 +92,12 @@ public class PlayerController : MonoBehaviour {
 		movement = new Vector2(moveHorizontal, moveVertical);
 
         rb2d.velocity = movement.normalized * speed;
-		child.GetComponent<Rigidbody2D>().velocity = movement.normalized * speed; 
+
+		if (prev_position != transform.position) {
+			child.GetComponent<Rigidbody2D>().velocity = movement.normalized * speed; 
+			//GetComponentInChildren<GunController> ().Recolocate (); 
+		}
+		prev_position = transform.position;
 
 		if (movement.magnitude == 0 && moving) {
 			moving = false;
