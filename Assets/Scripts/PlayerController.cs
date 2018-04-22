@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour {
         float angle = Mathf.Atan2(Vector2.up.y, Vector2.up.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         lastShot = 0.0f;
+		Physics2D.IgnoreCollision (GetComponent<BoxCollider2D> (), GetComponentInChildren<BoxCollider2D> ());
     }
 
     
@@ -72,7 +73,6 @@ public class PlayerController : MonoBehaviour {
 			//child.GetComponent<GunController>().CompensateRotation (targetRotation);
         }
 
-		// AÑADIDO POR JOSE
 		if (Input.GetKeyDown(KeyCode.L)) {
 			SwitchTiles();
 		}
@@ -80,11 +80,12 @@ public class PlayerController : MonoBehaviour {
 
     public void FixedUpdate()
     {
+		Vector2 movement;
         float moveHorizontal = 0, moveVertical = 0;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) moveHorizontal = Input.GetAxis("Horizontal");
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)) moveVertical = Input.GetAxis("Vertical");
 
-        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+		movement = new Vector2(moveHorizontal, moveVertical);
 
         rb2d.velocity = movement.normalized * speed;
 		child.GetComponent<Rigidbody2D>().velocity = movement.normalized * speed; 

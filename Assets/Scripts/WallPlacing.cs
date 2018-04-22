@@ -9,7 +9,6 @@ public class WallPlacing : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         float offset = pm.GetOffset();
-        Debug.Log(offset);
         float height = Camera.main.transform.position.z;
 
         //left

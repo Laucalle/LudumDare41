@@ -11,11 +11,13 @@ public class GunController : MonoBehaviour {
 	private float lastShot;
 	public Animator animator;
 
+	private float initial_position;
+
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent < Animator> ();
 		lastShot = 0.0f;
-		
+		initial_position = (transform.position - GetComponentInParent<PlayerController> ().transform.position).magnitude;
 	}
 
 	public void CompensateRotation(Quaternion rot){
@@ -51,7 +53,11 @@ public class GunController : MonoBehaviour {
 			transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 15);
 		}
 
-		transform.position = GetComponentInParent<PlayerController> ().transform.position;
+		//transform.position = GetComponentInParent<PlayerController> ().transform.position;
+		Vector3 pos = GetComponentInParent<Rigidbody2D> ().velocity.normalized * initial_position;
+		if (pos != Vector3.zero)
+			transform.position = GetComponentInParent<PlayerController> ().transform.position + pos;
+
 	}
 
 	private void FixedUpdate() {

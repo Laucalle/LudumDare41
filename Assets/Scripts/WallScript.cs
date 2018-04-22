@@ -14,8 +14,8 @@ public class WallScript : MonoBehaviour {
 		
 	}
 
-    private void OnCollisionEnter(Collider other){
+    /*private void OnCollisionEnter(Collider other){
         if (other.gameObject.tag == "Bullet")
             Destroy(other.gameObject);
-    }
+    }*/
 }
