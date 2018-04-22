@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour {
 			//child.GetComponent<GunController>().CompensateRotation (targetRotation);
         }
 
-		if (Input.GetKeyDown(KeyCode.L)) {
+		if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.LeftShift)) {
 			SwitchTiles();
 		}
     }

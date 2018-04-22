@@ -100,7 +100,7 @@ public class PuzzleManager : MonoBehaviour {
 	// Mixes the puzzle
 	void MixPuzzle() {
 		int moves = 0;
-		while (moves < 1) {
+		while (moves < 50) {
 			// 4 = up, 1 = right, 2 = down, 3 = left
 			int rand_move = Random.Range(0,9);
 

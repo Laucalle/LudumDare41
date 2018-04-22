@@ -33,7 +33,21 @@ public class EnemyController : MonoBehaviour {
 			audio_manager.DollSteps ();
 			Vector2 direction = player.transform.position - transform.position;
 			rb2D.velocity = direction.normalized * Time.deltaTime * speed;
-			//transform.LookAt (player.transform.position);
+
+			/*Vector3 dir = player.transform.position - transform.position; 
+			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg; 
+			Quaternion q = Quaternion.AngleAxis(angle, Vector3.up); 
+			transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 5);
+		
+
+			var rotationAngle = Quaternion.LookRotation ( player.transform.position - transform.position);
+			if (rotationAngle.z == 0) rotationAngle.z = rotationAngle.y;
+			rotationAngle.x = 0;
+			rotationAngle.y = 0;
+			transform.rotation = Quaternion.Slerp ( transform.rotation, rotationAngle, Time.deltaTime * 5); // we rotate the rotationAngle 
+			*/
+
+
 			Quaternion lookAt = Quaternion.FromToRotation(Vector2.up,player.transform.position);
 			if (lookAt.z == 0) lookAt.z = lookAt.x;
 			lookAt.x = 0;
