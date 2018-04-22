@@ -31,8 +31,12 @@ public class EnemyController : MonoBehaviour {
 		} else {
 			Vector2 direction = player.transform.position - transform.position;
 			rb2D.velocity = direction.normalized * Time.deltaTime * speed;
-			//transform.LookAt (player.transform);
-			//transform.rotation = Quaternion.LookRotation(player.transform.position);
+			//transform.LookAt (player.transform.position);
+			Quaternion lookAt = Quaternion.FromToRotation(Vector2.up,player.transform.position);
+			if (lookAt.z == 0) lookAt.z = lookAt.x;
+			lookAt.x = 0;
+			lookAt.y = 0;
+			transform.rotation = lookAt;
 		}
 	}
 
