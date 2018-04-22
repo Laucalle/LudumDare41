@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour {
 	void Update () {
 		if (dead) {
 			if (actual_time_to_death <= 0) {
-				Destroy (transform.gameObject);
+				Die();
 			}
 			actual_time_to_death -= Time.deltaTime;
 		} else {
@@ -44,7 +44,7 @@ public class EnemyController : MonoBehaviour {
 			TileManager tile_manager = collider.gameObject.GetComponent<TileManager> ();
 
 			if (tile_manager.GetDeadly ()) {
-				Die ();
+				DieByFalling ();
 			}
 		}
 	}
@@ -55,21 +55,24 @@ public class EnemyController : MonoBehaviour {
 				TileManager tile_manager = collider.gameObject.GetComponent<TileManager> ();
 
 				if (tile_manager.GetDeadly ()) {
-					Die ();
+					DieByFalling ();
 				}
 			}
 		}
 	}
 
-	private void Die() {
+	private void DieByFalling() {
 		spawner.GetComponent<SpawnerController> ().ChildDied ();
 		dead = true;
 		UpdateAnimation ("EnemyFalling");
 		actual_time_to_death = time_to_death;
 		rb2D.velocity = Vector3.zero;
-		GetComponent<Collider2D> ().enabled = false;
+		GetComponent<BoxCollider2D> ().enabled = false;
 		GetComponent<CircleCollider2D> ().enabled = false;
+	}
 
+	private void Die() {
+		Destroy (transform.gameObject);
 	}
 
 	private void UpdateAnimation(string animation_name){
