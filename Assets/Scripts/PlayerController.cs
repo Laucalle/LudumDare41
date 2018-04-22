@@ -15,7 +15,9 @@ public class PlayerController : MonoBehaviour {
 	public GameObject pause;
 	public GameObject deathMenu;
 	public int life;
-	public Animator animator;
+	public AudioManagerController audio_manager;
+
+	private Animator animator;
 	private bool moving;
 
 	private Vector3 prev_position;
@@ -103,6 +105,7 @@ public class PlayerController : MonoBehaviour {
 			moving = false;
 			UpdateAnimation ("PlayerIdle");
 		} else if (movement.magnitude > 0 && !moving) {
+			audio_manager.PlayerSteps();
 			moving = true;
 			UpdateAnimation ("PlayerMoving");
 		}

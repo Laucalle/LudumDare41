@@ -9,6 +9,8 @@ public class SpawnerController : MonoBehaviour {
 	public GameObject enemyPrefab;
 	public GameObject player;
 	public PuzzleManager puzzle_manager;
+	public AudioManagerController audio_manager;
+
 	private float prevSpawn;
 	private int enemiesOnScene;
 
@@ -42,8 +44,11 @@ public class SpawnerController : MonoBehaviour {
 			GameObject enemy = Instantiate(enemyPrefab, v_pos, transform.rotation);
 			enemy.GetComponent<EnemyController> ().player = player;
 			enemy.GetComponent<EnemyController> ().spawner = transform.gameObject;
+			enemy.GetComponent<EnemyController> ().audio_manager = audio_manager;
 			prevSpawn = Time.time;
 			enemiesOnScene += 1;
+
+			audio_manager.LaughsAndVoices ();
 		}
 		
 	}

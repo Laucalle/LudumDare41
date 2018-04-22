@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour {
 	private bool dead;
 	private float time_to_death;
 	private float actual_time_to_death;
+	public AudioManagerController audio_manager;
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +30,7 @@ public class EnemyController : MonoBehaviour {
 			}
 			actual_time_to_death -= Time.deltaTime;
 		} else {
+			audio_manager.DollSteps ();
 			Vector2 direction = player.transform.position - transform.position;
 			rb2D.velocity = direction.normalized * Time.deltaTime * speed;
 			//transform.LookAt (player.transform.position);
