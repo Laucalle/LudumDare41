@@ -9,6 +9,8 @@ public class PuzzleManager : MonoBehaviour {
 	public TileManager[] tile_managers;
 	public Sprite blank_sprite;
 	public Sprite end_sprite;
+	public PlayerController player_controller;
+	float offset;
 
 	private bool end_tile_activated;
 	//List<int> permutation;
@@ -39,6 +41,7 @@ public class PuzzleManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		offset = 2.57f;
 		CreatePuzzle();
 
 		end_tile_activated = false;
@@ -47,11 +50,12 @@ public class PuzzleManager : MonoBehaviour {
 
 		AssignSprites ();
 		MixPuzzle ();
+		player_controller.SpawnPlayer(blank_position);
 	}
 
 	// Generates the tiles on the map
 	void CreatePuzzle () {
-		float offset = 2.57f, x_off = -offset, y_off = offset;
+		float x_off = -offset, y_off = offset;
 		for (int i = 0; i < 9; i++) {
 			Instantiate (tile_prefab, new Vector3 (x_off, y_off, 0), Quaternion.identity, transform);
 
@@ -67,7 +71,6 @@ public class PuzzleManager : MonoBehaviour {
 		int n_image = Random.Range (1, 3);
 		string name_image = "background" + n_image;
 		tile_sprites = Resources.LoadAll<Sprite> (name_image);
-
 		for (int i = 0; i < 9; i++) {
 			tile_managers [i].SetSprite(tile_sprites [i]);
 			tile_managers [i].SetId(i);
@@ -94,7 +97,7 @@ public class PuzzleManager : MonoBehaviour {
 	// Mixes the puzzle
 	void MixPuzzle() {
 		int moves = 0;
-		while (moves < 5) {
+		while (moves < 50) {
 			// 4 = up, 1 = right, 2 = down, 3 = left
 			int rand_move = Random.Range(0,9);
 
@@ -169,5 +172,30 @@ public class PuzzleManager : MonoBehaviour {
 			tile_managers [blank_position].SetEndTileTrue ();
 			tile_managers [blank_position].SetSprite (end_sprite);
 		}
+	}
+	
+	public int GetBlankPosition() {
+		return blank_position;
+	}
+
+	public float GetOffset() {
+		return offset;
+	}
+
+	public List<int> UnspawnablePositions() {
+		List<int> l = player_controller.GetTouchingTiles ();
+		if (! l.Contains(blank_position)) {
+			l.Add (blank_position);
+		}
+		return l;
+	} 
+
+	public int SpawnEnemyPosition() {
+		List<int> l = player_controller.GetTouchingTiles ();
+		int pos;
+		do {
+			pos = Random.Range (0, 9);
+		} while (pos == blank_position || l.Contains(tile_managers[pos].GetId()));
+		return pos;
 	}
 }

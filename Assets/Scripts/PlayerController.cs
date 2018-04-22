@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	// AÑADIDO POR JOSE
-	List<int> touching_tiles;
+	private List<int> touching_tiles;
 	public PuzzleManager puzzle_manager;
 
     public float speed;
@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+		touching_tiles = new List<int> ();
         rb2d = GetComponent<Rigidbody2D>();
         float angle = Mathf.Atan2(Vector2.up.y, Vector2.up.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -122,7 +123,7 @@ public class PlayerController : MonoBehaviour {
 		if (touching_tiles.Count == 1) {
 			int tile_id = touching_tiles [0];
 			int movement = puzzle_manager.TrySwitchTile (tile_id);
-			float offset = 2.57f;
+			float offset = puzzle_manager.GetOffset();
 			Vector3 new_position = transform.position;
 			switch(movement) {
 			case 1:
@@ -148,5 +149,30 @@ public class PlayerController : MonoBehaviour {
 			str += touching_tiles[i] + " ";
 		}
 		Debug.Log (str);
+	}
+
+	public void SpawnPlayer(int blank_position) {
+		int pos;
+		do {
+			pos = Random.Range (0, 9);
+		} while (pos == blank_position);
+
+		Vector3 v_pos = new Vector3(0,0,0);
+		float offset = puzzle_manager.GetOffset ();
+		if (pos % 3 == 0) {
+			v_pos.x -= offset;
+		} else if (pos % 3 == 2) {
+			v_pos.x += offset;
+		}
+		if (pos < 3) {
+			v_pos.y += offset;
+		} else if (pos > 5) {
+			v_pos.y -= offset;
+		}
+		transform.position = v_pos;
+	}
+
+	public List<int> GetTouchingTiles() {
+		return touching_tiles;
 	}
 }
