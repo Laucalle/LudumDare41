@@ -38,10 +38,13 @@ public class PuzzleManager : MonoBehaviour {
 			tile_managers[8].SwitchTile();
 		}
 	}
-
-	// Use this for initialization
-	void Start () {
-		offset = 2.57f;
+    private void Awake()
+    {
+        offset = 2.57f;
+    }
+    // Use this for initialization
+    void Start () {
+		
 		CreatePuzzle();
 
 		end_tile_activated = false;
