@@ -1497,28 +1497,6 @@ Prefab:
       propertyPath: deathMenu
       value: 
       objectReference: {fileID: 121266207}
-    - target: {fileID: 1377282228006778, guid: eae561df6583f0042a5fbcf0ba767653, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1561201316880480, guid: eae561df6583f0042a5fbcf0ba767653, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1957682820636402, guid: eae561df6583f0042a5fbcf0ba767653, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 61496477990989206, guid: eae561df6583f0042a5fbcf0ba767653,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 61496477990989206, guid: eae561df6583f0042a5fbcf0ba767653,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 2.2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eae561df6583f0042a5fbcf0ba767653, type: 2}
   m_IsPrefabParent: 0
