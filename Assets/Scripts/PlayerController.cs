@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-
-	// AÑADIDO POR JOSE
 	private List<int> touching_tiles;
 	public PuzzleManager puzzle_manager;
 
@@ -17,6 +15,8 @@ public class PlayerController : MonoBehaviour {
 	public GameObject pause;
 	public GameObject deathMenu;
 	public int life;
+	public Animator animator;
+	private bool moving;
 
     private Rigidbody2D rb2d;
     private float lastShot;
@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+		animator = GetComponent<Animator> ();
+		moving = false;
 		touching_tiles = new List<int> ();
         rb2d = GetComponent<Rigidbody2D>();
         float angle = Mathf.Atan2(Vector2.up.y, Vector2.up.x) * Mathf.Rad2Deg;
@@ -85,10 +87,17 @@ public class PlayerController : MonoBehaviour {
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
         rb2d.velocity = movement.normalized * speed;
-		child.GetComponent<Rigidbody2D>().velocity = movement.normalized * speed;  
-    }
+		child.GetComponent<Rigidbody2D>().velocity = movement.normalized * speed; 
 
-	// AÑADIDO POR JOSE
+		if (movement.magnitude == 0 && moving) {
+			moving = false;
+			UpdateAnimation ("PlayerIdle");
+		} else if (movement.magnitude > 0 && !moving) {
+			moving = true;
+			UpdateAnimation ("PlayerMoving");
+		}
+    }
+		
 	public void OnTriggerEnter2D(Collider2D collider2D){
 		if (collider2D.gameObject.tag == "Tile") {
 			TileManager tile_manager = collider2D.gameObject.GetComponent<TileManager> ();
@@ -111,8 +120,7 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 	}
-
-	// AÑADIDO POR JOSE
+		
 	public void OnTriggerExit2D(Collider2D collider2D){
 		if (collider2D.gameObject.tag == "Tile") {
 			TileManager tile_manager = collider2D.gameObject.GetComponent<TileManager> ();
@@ -120,13 +128,11 @@ public class PlayerController : MonoBehaviour {
 		}
 
 	}
-
-	// AÑADIDO POR JOSE
+		
 	private void Die() {
 		Debug.Log ("He muerto");
 	}
-
-	// AÑADIDO POR JOSE
+		
 	private void SwitchTiles() {
 		if (touching_tiles.Count == 1) {
 			int tile_id = touching_tiles [0];
@@ -182,5 +188,11 @@ public class PlayerController : MonoBehaviour {
 
 	public List<int> GetTouchingTiles() {
 		return touching_tiles;
+	}
+
+	private void UpdateAnimation(string animation_name){
+		if (animation_name != null) {
+			animator.Play (animation_name);
+		}
 	}
 }
