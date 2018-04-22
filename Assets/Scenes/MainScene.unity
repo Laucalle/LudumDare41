@@ -1353,6 +1353,16 @@ Prefab:
       propertyPath: life
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 61496477990989206, guid: eae561df6583f0042a5fbcf0ba767653,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 61496477990989206, guid: eae561df6583f0042a5fbcf0ba767653,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 2.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eae561df6583f0042a5fbcf0ba767653, type: 2}
   m_IsPrefabParent: 0

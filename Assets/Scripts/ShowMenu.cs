@@ -13,7 +13,6 @@ public class ShowMenu : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        pressed = false;
         menuActive = false;
         anim = GetComponent<Animator>();
 
@@ -21,7 +20,7 @@ public class ShowMenu : MonoBehaviour {
         {
             child.gameObject.SetActive(false);
             if (child.name == "MenuPanel") menuPanel = child.gameObject;
-            if (child.name == "ImagePanel") imagePanel = child.gameObject;
+            if (child.name == "GameName") imagePanel = child.gameObject;
         }
 
         imagePanel.SetActive(true);
@@ -31,15 +30,9 @@ public class ShowMenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if ( !pressed && Input.anyKey)
-        {
-            pressed = true;
-            anim.SetTrigger("AnyKey");
-            timeTrigger = Time.time;
-            Debug.Log("KeyPressed");
-        }
-
-        if(pressed && !menuActive && Time.time - timeTrigger >= 2.5)
+        anim.SetTrigger("Start");
+        
+		if(Input.anyKey && Time.time - timeTrigger >= 2.5 && !menuActive)
         {
             menuPanel.SetActive(true);
             menuActive = true;
