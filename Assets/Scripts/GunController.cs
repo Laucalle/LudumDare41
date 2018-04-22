@@ -47,7 +47,7 @@ public class GunController : MonoBehaviour {
 			if (targetRotation.z == 0) targetRotation.z = targetRotation.x;
 			targetRotation.x = 0;
 			targetRotation.y = 0;
-			transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5);
+			transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 15);
 		}
 	}
 

@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour {
     public GameObject bulletPrefab;
     public GameObject bulletSpawn;
 	public GameObject child;
+	public GameObject pause;
+	public GameObject deathMenu;
+	public int life;
 
     private Rigidbody2D rb2d;
     private float lastShot;
@@ -101,6 +104,11 @@ public class PlayerController : MonoBehaviour {
 		} else if (collider2D.transform.tag == "Enemy") {
 			Debug.Log ("Te han pillado");
 			Destroy (collider2D.transform.gameObject);
+			life -= 1;
+			if (life == 0) {
+				pause.GetComponent<PauseMenuController> ().Pause ();
+				deathMenu.SetActive (true);
+			}
 		}
 	}
 
