@@ -30,11 +30,13 @@ public class PauseMenuController : MonoBehaviour {
     {
         Time.timeScale = 0;
         fadeImage.SetActive(true);
+		transform.gameObject.GetComponent<AudioSource> ().Pause ();
     }
 
     public void Resume()
     {
         Time.timeScale = 1;
         fadeImage.SetActive(false);
+		transform.gameObject.GetComponent<AudioSource> ().Play ();
     }
 }

@@ -9,10 +9,11 @@ public class GunController : MonoBehaviour {
 	public GameObject bulletPrefab;
 	public GameObject bulletSpawn;
 	private float lastShot;
+	public Animator animator;
 
 	// Use this for initialization
 	void Start () {
-
+		animator = GetComponent < Animator> ();
 		lastShot = 0.0f;
 		
 	}
@@ -47,7 +48,7 @@ public class GunController : MonoBehaviour {
 			if (targetRotation.z == 0) targetRotation.z = targetRotation.x;
 			targetRotation.x = 0;
 			targetRotation.y = 0;
-			transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5);
+			transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 15);
 		}
 	}
 
@@ -57,6 +58,14 @@ public class GunController : MonoBehaviour {
 			GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
 			bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * bulletSpeed;
 			lastShot = Time.time;
+			UpdateAnimation ("GunnerShot");
+
 		} 
+	}
+
+	private void UpdateAnimation(string animation_name){
+		if (animation_name != null) {
+			animator.Play (animation_name);
+		}
 	}
 }

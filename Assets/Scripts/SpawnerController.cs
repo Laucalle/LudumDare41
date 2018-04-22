@@ -5,14 +5,16 @@ using UnityEngine;
 public class SpawnerController : MonoBehaviour {
 
 	public float spawnFreq;
+	public int maxEnemies;
 	public GameObject enemyPrefab;
 	public GameObject player;
 	public PuzzleManager puzzle_manager;
 	private float prevSpawn;
+	private int enemiesOnScene;
 
 	// Use this for initialization
 	void Start () {
-
+		enemiesOnScene = 0;
 		prevSpawn = Time.time;
 		
 	}
@@ -36,11 +38,17 @@ public class SpawnerController : MonoBehaviour {
 		}
 
 
-		if(Time.time - prevSpawn > spawnFreq){
+		if(Time.time - prevSpawn > spawnFreq*(enemiesOnScene/10 + 1) && enemiesOnScene < maxEnemies){
 			GameObject enemy = Instantiate(enemyPrefab, v_pos, transform.rotation);
 			enemy.GetComponent<EnemyController> ().player = player;
+			enemy.GetComponent<EnemyController> ().spawner = transform.gameObject;
 			prevSpawn = Time.time;
+			enemiesOnScene += 1;
 		}
 		
+	}
+
+	public void ChildDied(){
+		enemiesOnScene -= 1;
 	}
 }

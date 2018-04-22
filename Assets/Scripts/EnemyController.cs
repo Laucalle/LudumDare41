@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour {
 	public float speed;
 	private Rigidbody2D rb2D;
 	public GameObject player;
+	public GameObject spawner;
 
 	// Use this for initialization
 	void Start () {
@@ -26,11 +27,13 @@ public class EnemyController : MonoBehaviour {
 
 		if(collider.transform.tag == "Bullet"){
 			Destroy (collider.transform.gameObject);
+			spawner.GetComponent<SpawnerController> ().ChildDied ();
 			Destroy (transform.gameObject);
 		} else if (collider.gameObject.tag == "Tile") {
 			TileManager tile_manager = collider.gameObject.GetComponent<TileManager> ();
 
 			if (tile_manager.GetDeadly ()) {
+				spawner.GetComponent<SpawnerController> ().ChildDied ();
 				Destroy (transform.gameObject);
 			}
 		}
@@ -42,6 +45,7 @@ public class EnemyController : MonoBehaviour {
 			TileManager tile_manager = collider.gameObject.GetComponent<TileManager> ();
 
 			if (tile_manager.GetDeadly ()) {
+				spawner.GetComponent<SpawnerController> ().ChildDied ();
 				Destroy (transform.gameObject);
 			}
 		}
