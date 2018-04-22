@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour {
     // Update que dispara con lass flechas
     void Update ()
     {
-
+		
         Vector2 moveTarget = new Vector2(0, 0);
         Quaternion targetRotation;
 
@@ -86,14 +86,15 @@ public class PlayerController : MonoBehaviour {
 
     public void FixedUpdate()
     {
+		// Antiguo FixedUpdate
 		Vector2 movement;
-        float moveHorizontal = 0, moveVertical = 0;
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) moveHorizontal = Input.GetAxis("Horizontal");
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)) moveVertical = Input.GetAxis("Vertical");
+		float moveHorizontal = 0, moveVertical = 0;
+		if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) moveHorizontal = Input.GetAxis("Horizontal");
+		if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)) moveVertical = Input.GetAxis("Vertical");
 
 		movement = new Vector2(moveHorizontal, moveVertical);
 
-        rb2d.velocity = movement.normalized * speed;
+		rb2d.velocity = movement.normalized * speed;
 
 		if (prev_position != transform.position) {
 			child.GetComponent<Rigidbody2D>().velocity = movement.normalized * speed; 
