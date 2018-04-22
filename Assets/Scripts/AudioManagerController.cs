@@ -14,11 +14,13 @@ public class AudioManagerController : MonoBehaviour {
 	private float player_step_delay;
 	private float voices_delay;
 	private float shot_delay;
+	private float laughs_delay;
 
 	private float doll_step_time;
 	private float player_step_time;
 	private float voices_time;
 	private float shot_time;
+	private float laughs_time;
 
 	private AudioSource audio_source;
 
@@ -29,11 +31,13 @@ public class AudioManagerController : MonoBehaviour {
 		player_step_delay = 0.2f;
 		voices_delay = 1f;
 		shot_delay = 0;
+		laughs_delay = 1f;
 
 		doll_step_time = 0;
 		player_step_time = 0;
 		voices_time = 0;
 		shot_time = 0;
+		laughs_time = 0;
 	}
 	
 	// Update is called once per frame
@@ -46,6 +50,9 @@ public class AudioManagerController : MonoBehaviour {
 		}
 		if (voices_time > 0) {
 			voices_time -= Time.deltaTime;
+		}
+		if (laughs_time > 0) {
+			laughs_time -= Time.deltaTime;
 		}
 		if (shot_time > 0) {
 			shot_time -= Time.deltaTime;
@@ -66,14 +73,12 @@ public class AudioManagerController : MonoBehaviour {
 		}
 	}
 
-	public void LaughsAndVoices () {
+	public void Voices () {
 		if (voices_time <= 0) {
-			voices_time = voices_delay;
-			int rand = Random.Range (1, 6);
-			if (rand == 5) {
+			int rand = Random.Range (0, 10);
+			if (rand == 0) {
+				voices_time = voices_delay;
 				PlayRandomOneClip (voices);
-			} else {
-				PlayRandomOneClip (laughs);
 			}
 		}
 	}
@@ -83,6 +88,14 @@ public class AudioManagerController : MonoBehaviour {
 			shot_time = shot_delay;
 			PlayOneShot (shot);
 		}
+
+		if (laughs_time <= 0) {
+			int rand = Random.Range (0, 8);
+			if (rand == 0) {
+				PlayRandomOneClip (laughs);
+				laughs_time = laughs_delay;
+			}
+		} 
 	}
 
 	private void PlayRandomOneClip(AudioClip[] audio_clips) {

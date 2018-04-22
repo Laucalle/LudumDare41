@@ -48,7 +48,7 @@ public class SpawnerController : MonoBehaviour {
 			prevSpawn = Time.time;
 			enemiesOnScene += 1;
 
-			audio_manager.LaughsAndVoices ();
+			audio_manager.Voices ();
 		}
 		
 	}

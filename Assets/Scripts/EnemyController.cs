@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour {
 		dead = false;
 		time_to_death = 0.5f;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (dead) {
