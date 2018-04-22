@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 	private List<int> touching_tiles;
@@ -115,6 +116,7 @@ public class PlayerController : MonoBehaviour {
 
 			if (tile_manager.GetEndTile ()) {
 				Debug.Log ("He Ganado!");
+				SceneManager.LoadScene(3);
 			} else if (tile_manager.GetDeadly ()) {
 				Die ();
 			}
@@ -140,8 +142,8 @@ public class PlayerController : MonoBehaviour {
 		
 	private void Die() {
 		Debug.Log ("He muerto");
-		pause.GetComponent<PauseMenuController> ().Pause ();
-		deathMenu.SetActive (true);
+		SceneManager.LoadScene(2);
+		Time.timeScale = 1;
 	}
 		
 	private void SwitchTiles() {
