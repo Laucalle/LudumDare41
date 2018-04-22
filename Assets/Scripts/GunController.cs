@@ -16,6 +16,17 @@ public class GunController : MonoBehaviour {
 		lastShot = 0.0f;
 		
 	}
+
+	public void CompensateRotation(Quaternion rot){
+
+		Quaternion targetRotation;
+		targetRotation = new Quaternion (-rot.x, -rot.y, 0, rot.w);
+		if (targetRotation.z == 0) targetRotation.z = targetRotation.x;
+		targetRotation.x = 0;
+		targetRotation.y = 0;
+		transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10);
+		
+	}
 	
 	// Update is called once per frame
 	void Update ()
