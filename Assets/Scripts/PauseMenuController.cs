@@ -5,13 +5,11 @@ using UnityEngine;
 public class PauseMenuController : MonoBehaviour {
 
     public GameObject PauseMenu;
-    public GameObject fadeImage;
 
 	// Use this for initialization
 	void Start () {
 
         PauseMenu.SetActive(false);
-        fadeImage.SetActive(false);
 
     }
 	
@@ -29,14 +27,12 @@ public class PauseMenuController : MonoBehaviour {
     public void Pause()
     {
         Time.timeScale = 0;
-        fadeImage.SetActive(true);
 		transform.gameObject.GetComponent<AudioSource> ().Pause ();
     }
 
     public void Resume()
     {
         Time.timeScale = 1;
-        fadeImage.SetActive(false);
 		transform.gameObject.GetComponent<AudioSource> ().Play ();
     }
 }

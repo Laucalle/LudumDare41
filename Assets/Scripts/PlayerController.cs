@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 	private List<int> touching_tiles;
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject child;
 	public GameObject pause;
 	public GameObject deathMenu;
+    public Text lifeDisplay;
 	public int life;
 	public AudioManagerController audio_manager;
     public ParticleSystem particleScratch, particleMagic;
@@ -39,6 +41,7 @@ public class PlayerController : MonoBehaviour {
         lastShot = 0.0f;
 		Physics2D.IgnoreCollision (GetComponent<BoxCollider2D> (), GetComponentInChildren<BoxCollider2D> ());
 		prev_position = transform.position;
+        lifeDisplay.text = "Lives: " + life;
 
     }
 
@@ -106,6 +109,7 @@ public class PlayerController : MonoBehaviour {
 		} else if (collider2D.transform.tag == "Enemy") {
 			Destroy (collider2D.transform.gameObject);
 			life -= 1;
+            lifeDisplay.text = "Lives: " + life;
 			if (life == 0) {
 				Die ();
 			}
