@@ -82,21 +82,6 @@ public class PuzzleManager : MonoBehaviour {
 		tile_managers [blank_position].SetDeadly (true);
 	}
 
-	// Swaps positions blank and pos within permutation
-	/*void SwapBlankPositionInPermutation (int pos) {
-		int aux = permutation [blank_position];
-		permutation [blank_position] = permutation [pos];
-		permutation [pos] = aux;
-	}*/
-
-	/*void PrintPuzzle() {
-		string str = "";
-		for (int i=0; i<9; i++) {
-			str += (tile_managers[i].GetId() + " ");
-		}
-		Debug.Log(str);
-	}*/
-
 	// Mixes the puzzle
 	void MixPuzzle() {
 		int moves = 0;
