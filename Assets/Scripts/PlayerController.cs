@@ -42,23 +42,6 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    
-    void Update2 () {
-
-        Vector2 moveTarget = new Vector2(0, 0);
-        Quaternion targetRotation;
-
-        Vector3 shootDirection;
-        Vector3 mousePosition;
-        mousePosition = Input.mousePosition;
-        mousePosition.z = 0.0f;
-        shootDirection = Camera.main.ScreenToWorldPoint(mousePosition);
-        shootDirection = shootDirection - transform.position;
-
-        transform.rotation = Quaternion.LookRotation(mousePosition);
-
-    }
-
     // Update que dispara con lass flechas
     void Update ()
     {
@@ -108,6 +91,7 @@ public class PlayerController : MonoBehaviour {
     }
 		
 	public void OnTriggerEnter2D(Collider2D collider2D){
+
 		if (collider2D.gameObject.tag == "Tile") {
 			TileManager tile_manager = collider2D.gameObject.GetComponent<TileManager> ();
 			if (!touching_tiles.Contains (tile_manager.GetId ())) {
@@ -115,13 +99,11 @@ public class PlayerController : MonoBehaviour {
 			}
 
 			if (tile_manager.GetEndTile ()) {
-				Debug.Log ("He Ganado!");
 				SceneManager.LoadScene(3);
 			} else if (tile_manager.GetDeadly ()) {
 				Die ();
 			}
 		} else if (collider2D.transform.tag == "Enemy") {
-			Debug.Log ("Te han pillado");
 			Destroy (collider2D.transform.gameObject);
 			life -= 1;
 			if (life == 0) {
@@ -144,7 +126,6 @@ public class PlayerController : MonoBehaviour {
 	}
 		
 	private void Die() {
-		Debug.Log ("He muerto");
 		SceneManager.LoadScene(2);
 		Time.timeScale = 1;
 	}

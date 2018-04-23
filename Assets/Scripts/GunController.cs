@@ -75,7 +75,6 @@ public class GunController : MonoBehaviour {
 	}
 
     public void Recolocate() {
-		//transform.position = GetComponentInParent<PlayerController> ().transform.position;
 		Vector3 pos = GetComponentInParent<Rigidbody2D> ().velocity.normalized * initial_position;
 		if (pos != Vector3.zero)
 			transform.position = GetComponentInParent<PlayerController> ().transform.position + pos;

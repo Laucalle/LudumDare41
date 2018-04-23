@@ -22,7 +22,9 @@ public class EnemyController : MonoBehaviour {
 		rb2D = GetComponent<Rigidbody2D> ();
 		dead = false;
 		time_to_death = 0.5f;
-	}
+        float angle = Mathf.Atan2(Vector2.up.y, Vector2.up.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
 
 	// Update is called once per frame
 	void Update () {
@@ -36,25 +38,22 @@ public class EnemyController : MonoBehaviour {
 			Vector2 direction = player.transform.position - transform.position;
 			rb2D.velocity = direction.normalized * Time.deltaTime * speed;
 
-			/*Vector3 dir = player.transform.position - transform.position; 
-			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg; 
-			Quaternion q = Quaternion.AngleAxis(angle, Vector3.up); 
-			transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 5);
-		
+            Vector2 moveTarget = new Vector2(0, 0);
+            Quaternion targetRotation;
 
-			var rotationAngle = Quaternion.LookRotation ( player.transform.position - transform.position);
-			if (rotationAngle.z == 0) rotationAngle.z = rotationAngle.y;
-			rotationAngle.x = 0;
-			rotationAngle.y = 0;
-			transform.rotation = Quaternion.Slerp ( transform.rotation, rotationAngle, Time.deltaTime * 5); // we rotate the rotationAngle 
-			*/
+            if (direction.y > -0.5) moveTarget += new Vector2(0, 1);
+            if (direction.x < 0.5) moveTarget += new Vector2(-1, 0);
+            if (direction.y < -0.5) moveTarget += new Vector2(0, -1);
+            if (direction.x > 0.5) moveTarget += new Vector2(1, 0);
 
-
-			Quaternion lookAt = Quaternion.FromToRotation(Vector2.up,player.transform.position);
-			if (lookAt.z == 0) lookAt.z = lookAt.x;
-			lookAt.x = 0;
-			lookAt.y = 0;
-			transform.rotation = lookAt;
+            if (moveTarget != Vector2.zero)
+            {
+                targetRotation = Quaternion.FromToRotation(Vector2.up, moveTarget);
+                if (targetRotation.z == 0) targetRotation.z = targetRotation.x;
+                targetRotation.x = 0;
+                targetRotation.y = 0;
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 50);
+            }
 		}
 	}
 
@@ -100,7 +99,9 @@ public class EnemyController : MonoBehaviour {
         rb2D.velocity = Vector3.zero;
         GetComponent<BoxCollider2D>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
-        Instantiate<ParticleSystem>(particleSystem, transform.position, Quaternion.identity).Play();
+        ParticleSystem p = Instantiate<ParticleSystem>(particleSystem, transform.position, Quaternion.identity);
+        p.Play();
+        StartCoroutine(destroyParticle(p));
         GetComponent<SpriteRenderer>().enabled = false;
     }
 
@@ -114,4 +115,10 @@ public class EnemyController : MonoBehaviour {
 			animator.Play (animation_name);
 		}
 	}
+
+    IEnumerator destroyParticle(ParticleSystem p)
+    {
+        yield return new WaitForSeconds(4);
+        Destroy(p.gameObject);
+    }
 }

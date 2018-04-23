@@ -18,7 +18,6 @@ public class SpawnerController : MonoBehaviour {
 	void Start () {
 		enemiesOnScene = 0;
 		prevSpawn = Time.time;
-		
 	}
 	
 	// Update is called once per frame
@@ -40,7 +39,7 @@ public class SpawnerController : MonoBehaviour {
 		}
 
 
-		if(Time.time - prevSpawn > spawnFreq*(enemiesOnScene/10 + 1) && enemiesOnScene < maxEnemies){
+		if(Time.time - prevSpawn > spawnFreq && enemiesOnScene < maxEnemies){
 			GameObject enemy = Instantiate(enemyPrefab, v_pos, transform.rotation);
 			enemy.GetComponent<EnemyController> ().player = player;
 			enemy.GetComponent<EnemyController> ().spawner = transform.gameObject;

@@ -1314,7 +1314,7 @@ Prefab:
     - target: {fileID: 114484029339363344, guid: 6159d350a389f0446aacaaa861edf697,
         type: 2}
       propertyPath: spawnFreq
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114484029339363344, guid: 6159d350a389f0446aacaaa861edf697,
         type: 2}
